@@ -150,3 +150,56 @@ $dir2 = new \Directory();
 require_once 'Project/Module/Directory.php';
 
 $dir = new Project\Module\Directory;
+
+//5-4
+namespace Project\Module;
+
+$namespace = "Project\\Module\\"; 
+$class_name = 'SomeClass';
+$class_name_with_us = $namespace . $class_name;
+
+$obj = new $class_name_with_us(); //new Project\Module\SomeClass()
+
+//5.5.1 PHPの例外
+try {
+    処理
+} catch ( 例外クラス名　変数名) {
+    例外処理
+}
+
+
+
+function div ($v1, $v2)
+{
+    if ($v2 === 0) {
+        throw new Exception("arg #2 is zero");
+    }
+    return $v1/$v2;
+}
+
+try {
+    echo div(1, 2) . PHP_EOL;
+    echo div(1, 0) . PHP_EOL;
+    echo div(2, 1) . PHP_EOL;
+} catch (Exception $e) {
+    echo 'Exception' . PHP_EOL;
+    echo $e->getMessage(), PHP_EOL;
+}
+
+// 5.5.4 PHPエラーと例外
+set_error_handler(function ($errno, $errstr, $errfile, $errline)
+{
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+});
+
+try {
+    array_merge();
+} catch (ErrorException $e) {
+    echo 'error occured!' . PHP_EOL;
+}
+
+//5.6 参照
+
+$a = 10;
+$b =&a;
+$c = $a;
