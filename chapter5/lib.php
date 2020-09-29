@@ -203,3 +203,59 @@ try {
 $a = 10;
 $b =&a;
 $c = $a;
+
+//5.6.4
+function array_path($array) {
+    $array[0] *= 2;
+    $array[1] *= 2;
+}
+
+function array_path_ref(&$array) {
+    $array[0] *= 2;
+    $array[1] *= 2;
+}
+
+$a = 10;
+$b = 20;
+
+$array = array($a, &$b);
+array_pass($array);
+
+$a = 10;
+$b = 20;
+
+$array = array($a, $b);
+array_path_ref($array);
+
+//5.6.3
+$a = new stdClass();
+
+$b = a;
+
+$c =& $a;
+
+class RefClass
+{
+    public function __construct()
+    {
+        echo __CLASS__, 'が生成されました' . PHP_EOL;
+    }
+    
+    public function __destruct()
+    {
+        echo __CLASS__, 'が破棄されました' . PHP_EOL;
+    }
+}
+
+echo '** プログラム開始' . PHP_EOL;
+echo '** new RefClass()', PHP_EOL;
+$a = new RefClass();
+echo '** $b = $a' . PHP_EOL;
+$b = $a;
+echo '** unset $a', PHP_EOL;
+unset($a);
+echo '** unset $b', PHP_EOL;
+unset($b);
+echo '** プログラム終了', PHP_EOL;
+
+//
